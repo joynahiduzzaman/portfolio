@@ -463,9 +463,7 @@ function AvatarVisual({ mouseX, mouseY }) {
         {/* Corner brackets HUD */}
         <CornerBrackets accent={active.accent} />
 
-        {/* HUD top label */}
-        <HudLabel accent={active.accent} label={active.label} idx={activeIdx} total={N} />
-
+       
         {/* Ambient glow — color-matched to active */}
         <AnimatePresence mode="sync">
           <motion.div
