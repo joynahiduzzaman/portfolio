@@ -27,15 +27,12 @@ export default defineConfig({
     minify: 'esbuild',
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('react-dom') || id.includes('react/')) return 'react-vendor';
-            if (id.includes('framer-motion')) return 'motion-vendor';
-            if (id.includes('react-icons')) return 'icons-vendor';
-            if (id.includes('@emailjs')) return 'email-vendor';
-            if (id.includes('gsap')) return 'gsap-vendor';
-            return 'vendor';
-          }
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'motion-vendor': ['framer-motion'],
+          'icons-vendor': ['react-icons'],
+          'email-vendor': ['@emailjs/browser'],
+          'gsap-vendor': ['gsap'],
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
