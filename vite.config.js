@@ -2,15 +2,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 
-// ESM-safe path helper (replaces __dirname)
 const r = (path) => fileURLToPath(new URL(path, import.meta.url));
 
 export default defineConfig({
-  base: './', // ✅ FIX: required for Vercel deployment
-
+  base: '/',
   plugins: [react()],
-
-  // Path aliases
   resolve: {
     alias: {
       '@':           r('./src'),
@@ -24,13 +20,11 @@ export default defineConfig({
       '@styles':     r('./src/styles'),
     },
   },
-
   build: {
     target: 'es2020',
     outDir: 'dist',
     sourcemap: false,
     minify: 'esbuild',
-
     rollupOptions: {
       output: {
         manualChunks: (id) => {
@@ -48,23 +42,18 @@ export default defineConfig({
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
       },
     },
-
     chunkSizeWarningLimit: 750,
   },
-
   server: {
     port: 5173,
     open: false,
   },
-
   preview: {
     port: 4173,
   },
-
   css: {
     devSourcemap: true,
   },
-
   optimizeDeps: {
     include: [
       'react',
