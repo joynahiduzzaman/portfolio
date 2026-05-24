@@ -2,13 +2,15 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 
-// ESM-safe path helper (replaces __dirname which doesn't exist in ESM)
+// ESM-safe path helper (replaces __dirname)
 const r = (path) => fileURLToPath(new URL(path, import.meta.url));
 
 export default defineConfig({
+  base: './', // ✅ FIX: required for Vercel deployment
+
   plugins: [react()],
 
-  // Path aliases — import '@/components/...' anywhere
+  // Path aliases
   resolve: {
     alias: {
       '@':           r('./src'),
@@ -24,20 +26,20 @@ export default defineConfig({
   },
 
   build: {
-    target:    'es2020',
-    outDir:    'dist',
+    target: 'es2020',
+    outDir: 'dist',
     sourcemap: false,
-    minify:    'esbuild',
+    minify: 'esbuild',
 
     rollupOptions: {
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            if (id.includes('react-dom') || id.includes('react/'))  return 'react-vendor';
-            if (id.includes('framer-motion'))                        return 'motion-vendor';
-            if (id.includes('react-icons'))                          return 'icons-vendor';
-            if (id.includes('@emailjs'))                             return 'email-vendor';
-            if (id.includes('gsap'))                                 return 'gsap-vendor';
+            if (id.includes('react-dom') || id.includes('react/')) return 'react-vendor';
+            if (id.includes('framer-motion')) return 'motion-vendor';
+            if (id.includes('react-icons')) return 'icons-vendor';
+            if (id.includes('@emailjs')) return 'email-vendor';
+            if (id.includes('gsap')) return 'gsap-vendor';
             return 'vendor';
           }
         },
