@@ -1,0 +1,12 @@
+{
+  "name": "Your Name — Portfolio",
+  "short_name": "YN Portfolio",
+  "description": "Full Stack Software Engineer Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07090F",
+  "theme_color": "#07090F",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
